@@ -13,7 +13,7 @@ services:
     ports:
       - '27017:27017'
     volumes: 
-      - whiskydb:/data
+      - whiskydb/data:/data
 
   mongo-express:
     container_name: mongo-express
@@ -31,7 +31,7 @@ services:
     ports:
       - '8081:8081'
     volumes: 
-      - whiskydb:/data
+      - whiskydb/data:/data
 
   backend:
     build:
