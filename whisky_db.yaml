@@ -35,7 +35,7 @@ services:
 
   backend:
     build:
-      context: ./whiskydb/_data/backend
+      context: ./_data/backend
       dockerfile: Dockerfile
     ports:
       - '5000:5000'
@@ -50,7 +50,7 @@ services:
 
   frontend:
     build:
-      context: ./whiskydb/_data/frontend
+      context: ./_data/frontend
       dockerfile: Dockerfile
     ports:
       - '3000:3000'
