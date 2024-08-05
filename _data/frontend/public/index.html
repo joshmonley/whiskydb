@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>React App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    Text here?<h1>Or here?</h1>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whisky Tracking</title>
+</head>
+<body>
+  <h1>Whisky Tracking</h1>
+  <div id="whisky-data"></div>
+  <script>
+    async function fetchWhiskyData() {
+      const response = await fetch('/api/whisky');
+      const data = await response.json();
+      const whiskyDataDiv = document.getElementById('whisky-data');
+      whiskyDataDiv.innerHTML = JSON.stringify(data, null, 2);
+    }
+
+    fetchWhiskyData();
+  </script>
+</body>
 </html>
