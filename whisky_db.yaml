@@ -35,7 +35,7 @@ services:
 
   backend:
     build:
-      context: ./_data/backend
+      context: /var/lib/docker/volumes/whiskydb/_data/backend
       dockerfile: Dockerfile
     ports:
       - '5000:5000'
@@ -45,12 +45,12 @@ services:
       - mongo-compose-network
     environment:
       - MONGO_URI=mongodb://admin:pass@mongo-dev:27017/auth?authSource=admin
-    #volumes:
-    #  - whiskydb:/app
+    volumes:
+      - whiskydb:/app
 
   frontend:
     build:
-      context: ./_data/frontend
+      context: /var/lib/docker/volumes/whiskydb/_data/frontend
       dockerfile: Dockerfile
     ports:
       - '3000:3000'
@@ -58,8 +58,8 @@ services:
       - backend
     networks:
       - mongo-compose-network
-    #volumes:
-    #  - whiskydb:/app
+    volumes:
+      - whiskydb:/app
 
 networks:
   mongo-compose-network:
