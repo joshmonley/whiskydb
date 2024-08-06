@@ -1,17 +1,20 @@
-# Use the official Node.js image
+# Use an official Node.js runtime as a parent image
 FROM node:14
 
-# Create app directory
+# Set the working directory
 WORKDIR /app
 
-# Install app dependencies
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
+# Install dependencies
 RUN npm install
 
-# Bundle app source
+# Copy the rest of the application code
 COPY . .
 
-# Expose port and start application
+# Expose the port the app runs on
 EXPOSE 5000
-CMD ["node", "src/server.js"]
+
+# Run the application
+CMD ["npm", "start"]
