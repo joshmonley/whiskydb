@@ -4,24 +4,27 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
+const port = process.env.PORT || 5000;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-const db = mongoose.connection;
-db.on('error', (error) => console.error(error));
-db.once('open', () => console.log('Connected to Database'));
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
-// Routes
-const newmakeRouter = require('./routes/newmake');
-const collectionRouter = require('./routes/collection');
+const connection = mongoose.connection;
+connection.once('open', () => {
+  console.log('MongoDB database connection established successfully');
+});
 
-app.use('/api/newmake', newmakeRouter);
-app.use('/api/collection', collectionRouter);
+// Define routes
+app.get('/', (req, res) => {
+  res.send('Hello World');
+});
 
-// Start the server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(port, () => {
+  console.log(`Server is running on port: ${port}`);
+});
