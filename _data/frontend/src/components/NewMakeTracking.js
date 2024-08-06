@@ -1,21 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// NewMakeTracking.js
+import React from 'react';
 
-const NewMakeTracking = () => {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    axios.get('/api/nmwhisky/newmake')
-      .then(response => setData(response.data))
-      .catch(error => console.error(error));
-  }, []);
-
-  return (
-    <div>
-      <h2>New Make Tracking</h2>
-      {/* Render data here */}
-    </div>
-  );
-};
+const NewMakeTracking = () => (
+  <div>
+    <h2>New Make Tracking</h2>
+  </div>
+);
 
 export default NewMakeTracking;

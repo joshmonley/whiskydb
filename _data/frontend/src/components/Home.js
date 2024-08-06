@@ -1,12 +1,9 @@
 import React from 'react';
 
-function Home() {
-  return (
-    <div>
-      <h1>Home</h1>
-      <p>Welcome to the Whisky Database!</p>
-    </div>
-  );
-}
+const Home = () => (
+  <div>
+    <h1>Welcome to the Whisky Database!</h1>
+  </div>
+);
 
 export default Home;
