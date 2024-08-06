@@ -1,19 +1,21 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Navbar from './components/Navbar';
 import Home from './components/Home';
 import NewMakeTracking from './components/NewMakeTracking';
 import RetailWhiskyCollection from './components/RetailWhiskyCollection';
 
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/new-make-tracking" element={<NewMakeTracking />} />
-        <Route path="/retail-whisky-collection" element={<RetailWhiskyCollection />} />
-      </Routes>
-    </Router>
-  );
-}
+const App = () => (
+  <Router>
+    <div>
+      <Navbar />
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/new-make-tracking" component={NewMakeTracking} />
+        <Route path="/retail-whisky-collection" component={RetailWhiskyCollection} />
+      </Switch>
+    </div>
+  </Router>
+);
 
 export default App;

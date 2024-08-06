@@ -63,3 +63,12 @@ app.delete('/collection/:id', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+// New make tracking
+app.get('/api/nmwhisky/newmake', (req, res) => {
+  // Fetch data from the nmwhisky.newmake collection
+});
+
+// Retail whisky collection
+app.get('/api/whisky/collection', (req, res) => {
+  // Fetch data from the whisky.collection collection
+});
