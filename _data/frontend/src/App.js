@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './components/Home.js';
+import Home from './components/Home';
 import NewMakeTracking from './components/NewMakeTracking';
 import RetailWhiskyCollection from './components/RetailWhiskyCollection';
 
