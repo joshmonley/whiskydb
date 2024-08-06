@@ -1,20 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import NewMakeTracking from './NewMakeTracking';
-import RetailWhiskyCollection from './RetailWhiskyCollection';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './components/Home';
+import NewMakeTracking from './components/NewMakeTracking';
+import RetailWhiskyCollection from './components/RetailWhiskyCollection';
 
 function App() {
   return (
     <Router>
-      <Switch>
-        <Route path="/newmake" component={NewMakeTracking} />
-        <Route path="/collection" component={RetailWhiskyCollection} />
-        <Route path="/" exact>
-          <h1>Welcome to WhiskyDB</h1>
-          <a href="/newmake">New Make Tracking</a>
-          <a href="/collection">Retail Whisky Collection</a>
-        </Route>
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/new-make-tracking" element={<NewMakeTracking />} />
+        <Route path="/retail-whisky-collection" element={<RetailWhiskyCollection />} />
+      </Routes>
     </Router>
   );
 }
