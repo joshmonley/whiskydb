@@ -26,6 +26,7 @@ COPY --from=0 /app/build /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
+EXPOSE 3000
 
 # Start nginx when the container launches
 CMD ["nginx", "-g", "daemon off;"]
