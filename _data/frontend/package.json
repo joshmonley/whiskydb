@@ -10,6 +10,9 @@
     "react-router-dom": "^6.0.0",
     "react-scripts": "5.0.1"
   },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.16.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -17,18 +20,7 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "overrides": [
-      {
-        "files": ["**/*.test.js", "**/*.spec.js"],
-        "env": {
-          "jest": true
-        }
-      }
-    ]
+    "extends": ["react-app", "react-app/jest"]
   },
   "browserslist": {
     "production": [
