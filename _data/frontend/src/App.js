@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from 'src/components/Home.js';
-import NewMakeTracking from 'src/components/NewMakeTracking';
-import RetailWhiskyCollection from 'src/components/RetailWhiskyCollection';
+import Home from './components/Home.js';
+import NewMakeTracking from './components/NewMakeTracking';
+import RetailWhiskyCollection from './components/RetailWhiskyCollection';
 
 function App() {
   return (
