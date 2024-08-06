@@ -3,71 +3,63 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const app = express();
+const port = 5000;
+
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://admin:pass@mongo-dev:27017/auth?authSource=admin', { useNewUrlParser: true, useUnifiedTopology: true });
-
-const newmakeSchema = new mongoose.Schema({
-    barrels: Array
+// MongoDB connection
+mongoose.connect('mongodb://admin:pass@mongo-dev:27017/auth?authSource=admin', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
-const collectionSchema = new mongoose.Schema({
-    name: String,
-    distillery: String,
-    age: Number,
-    abv: Number,
-    volume: Number,
-    price: Number,
-    tastingNotes: String
+// Models
+const NewMakeTracking = mongoose.model('NewMakeTracking', new mongoose.Schema({/* schema here */}));
+const RetailWhiskyCollection = mongoose.model('RetailWhiskyCollection', new mongoose.Schema({/* schema here */}));
+
+// Routes
+app.get('/newmake', async (req, res) => {
+  try {
+    const data = await NewMakeTracking.find();
+    res.json(data);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 
-const Newmake = mongoose.model('Newmake', newmakeSchema);
-const Collection = mongoose.model('Collection', collectionSchema);
-
-// CRUD operations for newmake
-app.get('/api/newmake', async (req, res) => {
-    const newmake = await Newmake.find();
-    res.json(newmake);
+app.post('/newmake', async (req, res) => {
+  // Handle creating new document
 });
 
-app.post('/api/newmake', async (req, res) => {
-    const newmake = new Newmake(req.body);
-    await newmake.save();
-    res.json(newmake);
+app.put('/newmake/:id', async (req, res) => {
+  // Handle updating document
 });
 
-app.put('/api/newmake/:id', async (req, res) => {
-    const newmake = await Newmake.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(newmake);
+app.delete('/newmake/:id', async (req, res) => {
+  // Handle deleting document
 });
 
-app.delete('/api/newmake/:id', async (req, res) => {
-    await Newmake.findByIdAndDelete(req.params.id);
-    res.json({ message: 'Deleted' });
+app.get('/collection', async (req, res) => {
+  try {
+    const data = await RetailWhiskyCollection.find();
+    res.json(data);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 
-// CRUD operations for collection
-app.get('/api/collection', async (req, res) => {
-    const collection = await Collection.find();
-    res.json(collection);
+app.post('/collection', async (req, res) => {
+  // Handle creating new document
 });
 
-app.post('/api/collection', async (req, res) => {
-    const collection = new Collection(req.body);
-    await collection.save();
-    res.json(collection);
+app.put('/collection/:id', async (req, res) => {
+  // Handle updating document
 });
 
-app.put('/api/collection/:id', async (req, res) => {
-    const collection = await Collection.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(collection);
+app.delete('/collection/:id', async (req, res) => {
+  // Handle deleting document
 });
 
-app.delete('/api/collection/:id', async (req, res) => {
-    await Collection.findByIdAndDelete(req.params.id);
-    res.json({ message: 'Deleted' });
-});
-
-app.listen(5000, () => {
-    console.log('Server is running on port 5000');
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
