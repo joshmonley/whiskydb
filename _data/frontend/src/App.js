@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import NewMakeTracking from './components/NewMakeTracking';
 import RetailWhiskyCollection from './components/RetailWhiskyCollection';
