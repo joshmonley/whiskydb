@@ -20,11 +20,12 @@ connection.once('open', () => {
   console.log('MongoDB database connection established successfully');
 });
 
-// Import routes
+// Routes
 const collectionRouter = require('./routes/collection');
+const newmakeRouter = require('./routes/newmake');
 
-// Use routes
 app.use('/collection', collectionRouter);
+app.use('/newmake', newmakeRouter);
 
 // Define routes
 app.get('/', (req, res) => {
