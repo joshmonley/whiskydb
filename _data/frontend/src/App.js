@@ -15,11 +15,11 @@ function App() {
             <li><a href="/collection">Retail Whisky Collection</a></li>
           </ul>
         </nav>
-        <Switch>
+        <Routes>
           <Route path="/" exact component={Home} />
           <Route path="/newmake" component={NewMakeTracking} />
           <Route path="/collection" component={RetailWhiskyCollection} />
-        </Switch>
+        </Routes>
       </div>
     </Router>
   );
