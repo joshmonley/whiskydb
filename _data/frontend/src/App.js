@@ -16,10 +16,11 @@ function App() {
           </ul>
         </nav>
         <Routes>
-          <Route path="/" exact component={Home} />
-          <Route path="/newmake" component={NewMakeTracking} />
-          <Route path="/collection" component={RetailWhiskyCollection} />
+         <Route path="/" element={<Home />} />
+         <Route path="/collection" element={<Collection />} />
+         <Route path="/newmake" element={<NewMake />} />
         </Routes>
+
       </div>
     </Router>
   );
