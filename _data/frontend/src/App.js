@@ -4,6 +4,7 @@ import Home from './components/Home';
 import NewMakeTracking from './components/NewMakeTracking';
 import RetailWhiskyCollection from './components/RetailWhiskyCollection';
 
+
 function App() {
   return (
     <Router>
@@ -17,8 +18,8 @@ function App() {
         </nav>
         <Routes>
          <Route path="/" element={<Home />} />
-         <Route path="/collection" element={<Collection />} />
-         <Route path="/newmake" element={<NewMake />} />
+         <Route path="/newmake" element={<NewMakeTracking />} />
+         <Route path="/collection" element={<RetailWhiskyCollection />} />
         </Routes>
 
       </div>
