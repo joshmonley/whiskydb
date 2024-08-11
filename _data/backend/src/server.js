@@ -21,8 +21,8 @@ connection.once('open', () => {
 });
 
 // Routes
-const collectionRouter = require('./routes/collection');
-const newmakeRouter = require('./routes/newmake');
+const collectionRouter = require('../routes/collection');
+const newmakeRouter = require('../routes/newmake');
 
 app.use('/collection', collectionRouter);
 app.use('/newmake', newmakeRouter);
