@@ -21,8 +21,11 @@ RUN npm run build
 # Use an official nginx image as a parent image
 FROM nginx:alpine
 
+
 # Copy the build output to replace the default nginx contents
 COPY --from=0 /app/build /usr/share/nginx/html
+# overwrite default config with customer nginx.conf
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 80
 EXPOSE 80
