@@ -4,14 +4,19 @@ const NewMakeTracking = () => {
     const [whiskies, setWhiskies] = useState([]);
 
     useEffect(() => {
-        fetch('/newmake')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data); // Debugging log
-                setWhiskies(data);
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
+      fetch('http://192.168.1.159:5000/newmake')
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              return response.json();
+          })
+          .then(data => {
+              console.log(data); // Debugging log
+              setWhiskies(data);
+          })
+          .catch(error => console.error('Error fetching data:', error));
+  }, []);
 
     return (
         <div>
