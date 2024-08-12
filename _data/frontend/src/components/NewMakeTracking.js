@@ -1,28 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 const NewMakeTracking = () => {
-  const [barrels, setBarrels] = useState([]);
+    const [whiskies, setWhiskies] = useState([]);
 
-  useEffect(() => {
-    axios.get('/api/newmake')
-      .then(response => setBarrels(response.data))
-      .catch(error => console.error(error));
-  }, []);
+    useEffect(() => {
+        fetch('/newmake')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); // Debugging log
+                setWhiskies(data);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
 
-  return (
-    <div>
-      <h2>New Make Tracking</h2>
-      <ul>
-        {barrels.map(barrel => (
-          <li key={barrel._id}>
-            Barrel ID: {barrel.barrel_id}, Style: {barrel.style}
-            {/* Display more details as needed */}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+    return (
+        <div>
+            <h1>New Make Tracking</h1>
+            {Array.isArray(whiskies) ? (
+                whiskies.map((whisky, index) => (
+                    <div key={index}>
+                        <h2>{whisky.name}</h2>
+                        <p>{whisky.details}</p>
+                    </div>
+                ))
+            ) : (
+                <p>No whiskies available.</p>
+            )}
+        </div>
+    );
 };
 
 export default NewMakeTracking;
