@@ -1,26 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 const RetailWhiskyCollection = () => {
-  const [collection, setCollection] = useState([]);
+  const [collectionData, setCollectionData] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/collection')
-      .then(response => setCollection(response.data))
-      .catch(error => console.error(error));
+    fetch('/collection')
+      .then(response => response.json())
+      .then(data => setCollectionData(data))
+      .catch(error => console.error('Error fetching data:', error));
   }, []);
 
   return (
     <div>
       <h2>Retail Whisky Collection</h2>
-      <ul>
-        {collection.map(item => (
-          <li key={item._id}>
-            Name: {item.name}, Age: {item.age}
-            {/* Display more details as needed */}
-          </li>
-        ))}
-      </ul>
+      {collectionData.length > 0 ? (
+        collectionData.map((whisky, index) => (
+          <div key={index}>
+            <h3>{whisky.name}</h3>
+            <p>Type: {whisky.type}</p>
+            <p>Age: {whisky.age} years</p>
+            <p>ABV: {whisky.abv}%</p>
+            <p>Price: ${whisky.price}</p>
+            <p>Stock: {whisky.stock} bottles</p>
+          </div>
+        ))
+      ) : (
+        <p>No data available.</p>
+      )}
     </div>
   );
 };
