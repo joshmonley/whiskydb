@@ -1,37 +1,25 @@
-const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
-require('dotenv').config();
-
+const express = require('express');
 const app = express();
-const port = process.env.PORT || 5000;
 
-app.use(cors());
-app.use(express.json());
-
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
+// MongoDB connection
+mongoose.connect('mongodb://admin:pass@192.168.1.159:27017', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
-const connection = mongoose.connection;
-connection.once('open', () => {
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
   console.log('MongoDB database connection established successfully');
 });
 
-// Routes
-const collectionRouter = require('../routes/collection');
-const newmakeRouter = require('../routes/newmake');
+// Middleware and routes
+app.use(express.json());
+app.use('/collection', require('../routes/collection'));
+app.use('/newmake', require('../routes/newmake'));
 
-app.use('/collection', collectionRouter);
-app.use('/newmake', newmakeRouter);
-
-// Define routes
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
+// Start the server
+app.listen(5000, () => {
+  console.log('Server is running on port: 5000');
 });

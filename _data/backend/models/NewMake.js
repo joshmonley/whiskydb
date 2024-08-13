@@ -28,4 +28,5 @@ const newMakeSchema = new mongoose.Schema({
   }]
 }, { timestamps: true });
 
-module.exports = mongoose.model('NewMake', newMakeSchema);
+module.exports = mongoose.model('NewMake', newMakeSchema, 'newmake'); 
+// The third parameter 'newmake' specifies the MongoDB collection name
