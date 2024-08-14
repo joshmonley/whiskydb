@@ -2,8 +2,14 @@ const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 
-// MongoDB connection
-mongoose.connect('mongodb://admin:pass@192.168.1.159:27017', {
+// Connect to the nmwhisky database for newmake collection
+mongoose.connect('mongodb://root:tribe@192.168.1.159:27017/nmwhisky', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+// Connect to the whisky database for collection
+mongoose.createConnection('mongodb://root:tribe@192.168.1.159:27017/whisky', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });

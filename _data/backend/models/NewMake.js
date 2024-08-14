@@ -1,32 +1,43 @@
+// models/NewMake.js
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const newMakeSchema = new mongoose.Schema({
-  barrel_id: { type: Number, required: true },
-  style: { type: String, required: true },
-  capacity_liters: { type: Number, required: true },
-  last_topped_up: { type: Date, required: true },
-  first_filled: { type: Date, required: true },
-  last_bottled: { type: Date, required: true },
-  previous_fill: { type: [String], required: true },
-  new_make: {
-    remaining_quantity_liters: { type: Number, required: true },
-    abv_percentage: { type: Number, required: true },
-    last_batch_number: { type: String, required: true },
-    batch_volumes: [{
-      batch_number: { type: String, required: true },
-      volume_liters: { type: Number, required: true }
-    }]
-  },
-  bottlings: [{
-    bottling_id: { type: Number, required: true },
-    status: { type: String, required: true },
-    finishing_wood: { type: [String], required: true },
-    bottle_date: { type: Date, required: true },
-    bottle_abv_percentage: { type: Number, required: true },
-    contact_duration_days: { type: Number, required: true },
-    finishing_wood_weight_grams: { type: Number, required: true }
-  }]
-}, { timestamps: true });
+const barrelSchema = new Schema({
+  // Define the schema fields based on your data structure
+  barrels: [
+    {
+      barrel_id: Number,
+      style: String,
+      capacity_liters: Number,
+      last_topped_up: String,
+      first_filled: String,
+      last_bottled: String,
+      previous_fill: [String],
+      new_make: {
+        remaining_quantity_liters: Number,
+        abv_percentage: Number,
+        last_batch_number: String,
+        batch_volumes: [
+          {
+            batch_number: String,
+            volume_liters: Number,
+          },
+        ],
+      },
+      bottlings: [
+        {
+          bottling_id: Number,
+          status: String,
+          finishing_wood: [String],
+          bottle_date: String,
+          bottle_abv_percentage: Number,
+          contact_duration_days: Number,
+          finishing_wood_weight_grams: Number,
+        },
+      ],
+    },
+  ],
+});
 
-module.exports = mongoose.model('NewMake', newMakeSchema, 'newmake'); 
-// The third parameter 'newmake' specifies the MongoDB collection name
+const NewMake = mongoose.model('NewMake', barrelSchema, 'newmake');
+module.exports = NewMake;

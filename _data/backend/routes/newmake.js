@@ -5,8 +5,8 @@ const NewMake = require('../models/NewMake');
 // GET all new makes
 router.get('/', async (req, res) => {
   try {
-    const newMakes = await NewMake.find();
-    res.json(newMakes);
+    const newmakeData = await NewMake.find();  // Fetch all data from newmake collection
+    res.json(newmakeData);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
