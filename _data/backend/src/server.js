@@ -3,16 +3,16 @@ const express = require('express');
 const app = express();
 
 // Connect to the nmwhisky database for newmake collection
-mongoose.connect('mongodb://admin:pass@192.168.1.159:27017/nmwhisky', {
+mongoose.connect('mongodb://admin:pass@192.168.1.159:27017/nmwhisky?authSource=admin&authMechanism=SCRAM-SHA-1"', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
 // Connect to the whisky database for collection
-mongoose.createConnection('mongodb://admin:pass@192.168.1.159:27017/whisky', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+//mongoose.createConnection('mongodb://admin:pass@192.168.1.159:27017/whisky', {
+//  useNewUrlParser: true,
+//  useUnifiedTopology: true
+//});
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
