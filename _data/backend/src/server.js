@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 // Connect to the nmwhisky database for newmake collection
-mongoose.connect('mongodb://admin:pass@192.168.1.159:27017/nmwhisky?authSource=admin&authMechanism=SCRAM-SHA-1"', {
+mongoose.connect('mongodb://admin:pass@192.168.1.159:27017/nmwhisky?authSource=admin&authMechanism=SCRAM-SHA-1', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
