@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const NewMake = require('../models/newmake.model');  // Adjust the path to your NewMake model
+const NewMake = require('../../models/NewMake');  // Adjust the path to your NewMake model
 
 // CREATE: Add a new entry to the newmake collection
 router.post('/', async (req, res) => {

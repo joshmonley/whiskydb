@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Whisky = require('../models/whisky.model');
+const Whisky = require('../../models/Whisky');
 
 // CREATE: Add a new whisky to the collection
 router.post('/', async (req, res) => {
