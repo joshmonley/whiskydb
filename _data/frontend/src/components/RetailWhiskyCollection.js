@@ -62,6 +62,12 @@ const RetailWhiskyCollection = () => {
     setFormData(whisky);
   };
 
+  const handleNew = () => {
+    setEditing(false);
+    setSelectedWhisky(null);
+    setFormData({ name: '', type: '', age: '', abv: '', price: '', stock: '' });
+  };
+
   const validateFormData = () => {
     const errors = {};
     if (!formData.name) {
@@ -132,8 +138,9 @@ const RetailWhiskyCollection = () => {
           value={formData.stock}
           onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
         />
-        {errors.stock && <div style={{ color: 'red' }}>{errors.stock}</div>}
+       {errors.stock && <div style={{ color: 'red' }}>{errors.stock}</div>}
         <button type="submit">Submit</button>
+        <button type="button" onClick={handleNew}>New</button>
       </form>
 
       <ul>

@@ -1,12 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import RetailWhiskyCollection from '../src/components/RetailWhiskyCollection';
+import { Link, Route, Switch } from 'react-router-dom';
+import NewMake from './NewMake';
+import RetailWhisky from './RetailWhisky';
 
-ReactDOM.render(
-    <React.StrictMode>
-      <RetailWhiskyCollection />
-    </React.StrictMode>,
-    document.getElementById('root')
+const Index = () => {
+  return (
+    <div>
+      <h1>Whisky Database</h1>
+      <ul>
+        <li><Link to="/new-make">Create a New Whisky Make</Link></li>
+        <li><Link to="/retail-whisky">View Retail Whisky</Link></li>
+      </ul>
+      <Switch>
+        <Route path="/new-make" component={NewMake} />
+        <Route path="/retail-whisky" component={RetailWhisky} />
+      </Switch>
+    </div>
   );
+};
+
+export default Index;
