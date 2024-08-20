@@ -12,6 +12,8 @@ const RetailWhiskyCollection = () => {
     stock: ''
   });
   const [errors, setErrors] = useState({});
+  const [editing, setEditing] = useState(false);
+  const [selectedWhisky, setSelectedWhisky] = useState(null);
 
   useEffect(() => {
     fetchWhiskies();
@@ -30,9 +32,15 @@ const RetailWhiskyCollection = () => {
     e.preventDefault();
     try {
       if (validateFormData()) {
-        await axios.post('/collection', formData);
-        fetchWhiskies(); // Refresh the list
+        if (editing) {
+          await axios.put(`/collection/${selectedWhisky._id}`, formData);
+        } else {
+          await axios.post('/collection', formData);
+        }
+        fetchWhiskies();
         setFormData({ name: '', type: '', age: '', abv: '', price: '', stock: '' });
+        setEditing(false);
+        setSelectedWhisky(null);
       }
     } catch (error) {
       console.error(error);
@@ -46,6 +54,12 @@ const RetailWhiskyCollection = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleEdit = (whisky) => {
+    setEditing(true);
+    setSelectedWhisky(whisky);
+    setFormData(whisky);
   };
 
   const validateFormData = () => {
@@ -119,13 +133,19 @@ const RetailWhiskyCollection = () => {
           onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
         />
         {errors.stock && <div style={{ color: 'red' }}>{errors.stock}</div>}
-        <button type="submit">Add Whisky</button>
+        <button type="submit">Submit</button>
       </form>
 
       <ul>
         {whiskies.map((whisky) => (
           <li key={whisky._id}>
-            {whisky.name} - {whisky.type} - Age: {whisky.age} - ABV: {whisky.abv} - Price: {whisky.price} - Stock: {whisky.stock}
+            <span>{whisky.name}</span>
+            <span>{whisky.type}</span>
+            <span>{whisky.age}</span>
+            <span>{whisky.abv}</span>
+            <span>{whisky.price}</span>
+            <span>{whisky.stock}</span>
+            <button onClick={() => handleEdit(whisky)}>Edit</button>
             <button onClick={() => handleDelete(whisky._id)}>Delete</button>
           </li>
         ))}
