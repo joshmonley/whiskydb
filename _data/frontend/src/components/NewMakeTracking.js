@@ -1,65 +1,71 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const NewMakeTracking = () => {
+function App() {
   const [newMakes, setNewMakes] = useState([]);
   const [formData, setFormData] = useState({
     barrel_id: '',
     style: '',
-    capacity_liters: '',
-    remaining_quantity_liters: '',
-    abv_percentage: '',
-    last_batch_number: '',
-    first_filled: '',
-    last_topped_up: '',
-    last_bottled: '',
-    previous_fill: '',
-    bottlings: []
+    // add more form fields here
   });
+  const [editFormData, setEditFormData] = useState({
+    barrel_id: '',
+    style: '',
+    // add more edit form fields here
+  });
+  const [editing, setEditing] = useState(false);
 
   useEffect(() => {
-    fetchNewMakes();
+    axios.get('/api/makes')
+      .then(response => {
+        setNewMakes(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }, []);
 
-  const fetchNewMakes = async () => {
-    try {
-      const response = await axios.get('/newmake');
-      setNewMakes(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post('/newmake', formData);
-      setNewMakes([...newMakes, formData]);
-      setFormData({
-        barrel_id: '',
-        style: '',
-        capacity_liters: '',
-        remaining_quantity_liters: '',
-        abv_percentage: '',
-        last_batch_number: '',
-        first_filled: '',
-        last_topped_up: '',
-        last_bottled: '',
-        previous_fill: '',
-        bottlings: []
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.post('/api/makes', formData)
+      .then(response => {
+        setNewMakes([...newMakes, response.data]);
+        setFormData({
+          barrel_id: '',
+          style: '',
+          // reset more form fields here
+        });
+      })
+      .catch(error => {
+        console.error(error);
       });
-    } catch (error) {
-      console.error(error);
-    }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`/newmake/${id}`);
-      setNewMakes(newMakes.filter((make) => make._id !== id));
-    } catch (error) {
-      console.error(error);
-    }
+  const handleEdit = (make) => {
+    setEditing(true);
+    setEditFormData(make);
+  };
+
+  const handleUpdate = (event) => {
+    event.preventDefault();
+    axios.put(`/api/makes/${editFormData._id}`, editFormData)
+      .then(response => {
+        setNewMakes(newMakes.map((make) => make._id === response.data._id ? response.data : make));
+        setEditing(false);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  const handleDelete = (id) => {
+    axios.delete(`/api/makes/${id}`)
+      .then(response => {
+        setNewMakes(newMakes.filter((make) => make._id !== id));
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
   return (
@@ -67,21 +73,47 @@ const NewMakeTracking = () => {
       <h2>New Make Tracking</h2>
 
       <form onSubmit={handleSubmit}>
-        {/* form fields */}
+        <label>Barrel ID:</label>
+        <input type="text" value={formData.barrel_id} onChange={(e) => setFormData({ ...formData, barrel_id: e.target.value })} />
+        <br />
+
+        <label>Style:</label>
+        <input type="text" value={formData.style} onChange={(e) => setFormData({ ...formData, style: e.target.value })} />
+        <br />
+
+        {/* add more form fields here */}
+
         <button type="submit">Add New Make</button>
       </form>
 
-      <ul>
-        {newMakes.map((make) => (
-          <li key={make._id}>
-            Barrel ID: {make.barrel_id} - Style: {make.style} - Capacity: {make.capacity_liters} liters - Remaining: {make.remaining_quantity_liters} liters - ABV: {make.abv_percentage}%
-            <button onClick={() => handleDelete(make._id)}>Delete</button>
-            {/* Add an Edit button and form here for updates */}
-          </li>
-        ))}
-      </ul>
+      {newMakes.map((make) => (
+        <div key={make._id}>
+          <p>Barrel ID: {make.barrel_id}</p>
+          <p>Style: {make.style}</p>
+          {/* display other make fields */}
+
+          <button onClick={() => handleEdit(make)}>Edit</button>
+          {editing && editFormData._id === make._id ? (
+            <form onSubmit={handleUpdate}>
+              <label>Barrel ID:</label>
+              <input type="text" value={editFormData.barrel_id} onChange={(e) => setEditFormData({ ...editFormData, barrel_id: e.target.value })} />
+              <br />
+
+              <label>Style:</label>
+              <input type="text" value={editFormData.style} onChange={(e) => setEditFormData({ ...editFormData, style: e.target.value })} />
+              <br />
+
+              {/* add more edit form fields here */}
+
+              <button type="submit">Update</button>
+            </form>
+          ) : null}
+
+          <button onClick={() => handleDelete(make._id)}>Delete</button>
+        </div>
+      ))}
     </div>
   );
-};
+}
 
-export default NewMakeTracking;
+export default App;
