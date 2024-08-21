@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
-import NewMakeTracking from '../src/components/NewMakeTracking';
-import RetailWhiskyCollection from '../src/components/RetailWhiskyCollection';
+import NewMakeTracking from './components/NewMakeTracking';
+import RetailWhiskyCollection from './components/RetailWhiskyCollection';
 
 const Index = () => {
   return (
@@ -12,8 +12,8 @@ const Index = () => {
         <li><Link to="/retail-whisky">View Retail Whisky</Link></li>
       </ul>
       <Routes>
-        <Route path="/new-make" component={NewMakeTracking} />
-        <Route path="/retail-whisky" component={RetailWhiskyCollection} />
+        <Route path="/new-make" element={<NewMakeTracking />} />
+        <Route path="/retail-whisky" element={<RetailWhiskyCollection />} />
       </Routes>
     </div>
   );
