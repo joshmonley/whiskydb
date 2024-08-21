@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import NewMakeTracking from '../src/components/NewMakeTracking';
 import RetailWhiskyCollection from '../src/components/RetailWhiskyCollection';
 
@@ -11,10 +11,10 @@ const Index = () => {
         <li><Link to="/new-make">Create a New Whisky Make</Link></li>
         <li><Link to="/retail-whisky">View Retail Whisky</Link></li>
       </ul>
-      <Switch>
+      <Routes>
         <Route path="/new-make" component={NewMakeTracking} />
         <Route path="/retail-whisky" component={RetailWhiskyCollection} />
-      </Switch>
+      </Routes>
     </div>
   );
 };
